@@ -27,7 +27,7 @@ function _access_listener() {
 			print file_get_contents(TEMPLATE_ROOT . 'qrcode.html');
 			exit;
 		}
-		print file_get_contents(TEMPLATE_ROOT . 'home.html');
+		print file_get_contents(TEMPLATE_ROOT . 'index.html');
 		exit;
 	}
 
