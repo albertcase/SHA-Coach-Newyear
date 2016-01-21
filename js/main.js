@@ -45,7 +45,7 @@
 	
 	//imgBox
 	var imgStep=1;
-	var imgCv,imgCanvas,imgPic;
+	var imgCv,imgCanvas,imgPic,imgPic2;
 	var imgBox=$('div.imgBox');
 	var imgShell=imgBox.children('.shell');
 	var imgScale,imgSaleMin=0.1,imgScaleMax=1,imgScaleTimer;
@@ -75,17 +75,15 @@
 	  }//end func
 	  
 	  function imgLoad(e){
-	  		var maskImg = new Image(), cthis;
-	  			maskImg.src = baseUrl + "/vstyle/imgs/mask.png";
-	  			cthis = this;
-
-	  			maskImg.onload = function(){
+	  				var cthis;
+			  			cthis = this;
 	  				imgShell.css({"height":imgShell.height()});
 					$('<canvas id="photoCanvas"></canvas>').attr({"width":imgShell.width(),"height":imgShell.height()}).prependTo(imgShell);
 					imgCv=$('canvas');
 
 					imgCanvas = oCanvas.create({
-						canvas: imgCv[0]
+						canvas: imgCv[0],
+						background: "#dddddd"
 					});
 
 					imgPic = imgCanvas.display.image({
@@ -95,16 +93,16 @@
 						image: cthis,
 					});
 
-					imgPic2 = imgCanvas.display.image({
-						width: imgCv.width()/2,
-						x:imgCv.width()/2,
-						y:imgCv.height()/3.1,
-						origin: { x: "center", y: "center" },
-						image: maskImg,
-					});
+					// imgPic2 = imgCanvas.display.image({
+					// 	width: imgCv.width()/2,
+					// 	x:imgCv.width()/2,
+					// 	y:imgCv.height()/3.1,
+					// 	origin: { x: "center", y: "center" },
+					// 	image: maskImg,
+					// });
 					
 					imgCanvas.addChild(imgPic);
-					imgCanvas.addChild(imgPic2);
+					// imgCanvas.addChild(imgPic2);
 
 					imgStep=1;
 					imgRotation=0;
@@ -112,15 +110,13 @@
 					else if(isS4) imgScale=imgScaleMax;
 					else imgScale=0.5;
 					imgScaleSet(imgPic);
+					
 					if(os.android) setTimeout(function(){
 						imgCv[0].style.opacity = imgCv[0].style.opacity ? "" : "0.999";
 					},250);
 					addImgEvent(imgPic);
 
-					$(".upload_btn").hide();
-					$(".qrUpload_btn").css("display", "inline-block");
-					$(".loading").hide();
-	  			}
+					$(".loading").addClass("hide");
 
 			
 	}//end func

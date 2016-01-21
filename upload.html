@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Coach - 新年猴猴玩</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="format-detection" content="telephone=no">
+	<!--禁用手机号码链接(for iPhone)-->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0,minimal-ui" />
+	<!--自适应设备宽度-->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!--控制全屏时顶部状态栏的外，默认白色-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="Keywords" content="">
+	<meta name="Description" content="...">
+
+   
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <script type="text/javascript" src="js/PxLoader.js"></script>
+    <script type="text/javascript" src="js/public.js"></script>
+
+
+</head>
+<body>
+<div class="loading hide">
+    <img src="img/loading.png" width="100%" class="car">
+
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <p>目前涌入的小伙伴过多<br>页面正在跳转中，请耐心等待。</p>
+</div>
+
+<div id="dreambox">
+    <div id="header"></div>
+    <div id="container">
+        <div class="uploadArea">
+            <input type="file" accept="image/jpeg" name="fileInput" id="fileInput" />
+
+            <div id="imgPreview">
+                <div class="imgBox">
+                    <div class="shell"></div>
+                </div>
+            </div>
+
+            <img src="img/uploadBg.jpg" width="100%" />
+        </div>
+
+        <div class="browArea">
+            <!-- Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img data-url="img/monkey/monkey_b_1.png" src="img/monkey/monkey_s_1.png" width="100%" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img data-url="img/monkey/monkey_b_2.png" src="img/monkey/monkey_s_2.png" width="100%" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img data-url="img/monkey/monkey_b_3.png" src="img/monkey/monkey_s_3.png" width="100%" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img data-url="img/monkey/monkey_b_4.png" src="img/monkey/monkey_s_4.png" width="100%" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="footer">
+        <a href="javascript:;" class="btn2 backBtn">
+            <img src="img/backBtn.png" width="100%" />
+        </a>
+        <a href="javascript:;" class="btn2 nextBtn">
+            <img src="img/nextBtn.png" width="100%" />
+        </a>
+    </div>
+</div>
+
+ <!-- 横屏代码 -->
+<div id="orientLayer" class="mod-orient-layer">
+    <div class="mod-orient-layer__content">
+        <i class="icon mod-orient-layer__icon-orient"></i>
+        <div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏浏览</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/dist/lrz.bundle.js"></script>
+<script type="text/javascript" src="js/ocanvas.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+<script type="text/javascript" src="js/share.js"></script>
+
+<script type="text/javascript">
+
+    var saveimgPushData = {
+            "image": ""
+        }, swiper, completion = false, photoSrc;
+
+    document.getElementById("fileInput").addEventListener('change', function () {
+        $(".loading").removeClass("hide");
+        var that = this;
+        lrz(that.files[0], {
+            width: "900",
+            quality: 1
+        })
+            .then(function (rst) {
+                var img        = new Image(),
+                    div        = document.getElementById('imgPreview');
+                img.onload = function () {
+                    imgCreat(rst.base64); 
+                    $("#fileInput").hide();
+                };
+
+                img.src = rst.base64;
+
+                return rst;
+            });
+    });
+
+
+    function toFixed2 (num) {
+        return parseFloat(+num.toFixed(2));
+    }
+
+
+    $(".swiper-slide").click(function(){
+        var _thisSlide = $(this);
+        var browImg = new Image();
+            browImg.src = _thisSlide.find("img").attr("data-url");
+            browImg.onload = function(){
+                //console.log(ratio);
+                if(!imgPic2){
+                    imgPic2 = imgCanvas.display.image({
+                        width: imgCv.width(),
+                        x:0,
+                        y:0,
+                        //origin: { x: "center", y: "center" },
+                        image: browImg,
+                        //shadow: "0 0 20px rgba(0,0,0, 0.8)"
+                    });
+                    imgCanvas.addChild(imgPic2);  
+                }else{
+                    imgCanvas.removeChild(imgPic2);  
+
+                     imgPic2 = imgCanvas.display.image({
+                        width: imgCv.width(),
+                        x:0,
+                        y:0,
+                        //origin: { x: "center", y: "center" },
+                        image: browImg,
+                        //shadow: "0 0 20px rgba(0,0,0, 0.8)"
+                    });
+                    imgCanvas.addChild(imgPic2);  
+                }
+
+                // imgScaleSet(imgPic2);
+                // addImgEvent(imgPic2);
+                $(".swiper-slide").removeClass("swiper-slide-active");
+                _thisSlide.addClass("swiper-slide-active");
+                
+            }
+
+        
+    })
+
+    
+    $(".nextBtn").click(function(){
+        if($(".shell").html() == "") return false;
+        if($(".shell").html() != "" && $(".shell").html() != null && !completion){
+            $(".browArea").css({"display": "inline-block"});
+            swiper = new Swiper('.swiper-container', {
+                slidesPerView: 4,
+                paginationClickable: true,
+                spaceBetween: 12
+            });
+
+            completion = true;
+        }else{
+            photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
+            saveimgPushData["image"] = photoSrc;
+            window.location.href = "share.html";
+        }
+    }) 
+
+    $(".backBtn").click(function(){
+        if(completion){
+            window.location.href = "upload.html";
+        }else{
+            window.location.href = "home.html";
+        }
+    })
+
+    
+
+
+
+</script>
+
+
+
+</body>
+</html>
