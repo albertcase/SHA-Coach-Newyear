@@ -9,12 +9,8 @@ require_once dirname(__FILE__) . "/module/emoji.php";
 $routers = array();
 $routers['/api/getdata'] = '_wechat_getdata';
 $routers['/api/callback'] = '_wechat_callback';
-$routers['/api/status'] = '_api_status';
-$routers['/api/lotterylist'] = '_api_lotterylist';
-$routers['/api/saveinfo'] = '_api_saveinfo';
-$routers['/api/lottery'] = '_api_lottery';
+$routers['/api/saveimg'] = '_api_saveimg';
 $routers['/api/share'] = '_api_share';
-$routers['/api/refreshlist'] = '_api_refreshlist';
 
 $listener = array();
 $listener[] = '/';

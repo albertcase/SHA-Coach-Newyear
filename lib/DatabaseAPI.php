@@ -120,23 +120,22 @@ class DatabaseAPI {
 	/**
 	 * Add prize record
 	 */
-	public function setPrizeRecord($uid, $lottery) {
-		$sql = "UPDATE `coach_newyear_info` SET `lottery` = ? WHERE id = ?";
+	public function setSaveImg($uid, $image) {
+		$sql = "INSERT INTO `coach_newyear_image` SET `image` = ?, uid = ?";
 		$res = $this->db->prepare($sql); 
-		$res->bind_param("ss", $lottery, $uid);
-		$res->execute();
-		$_SESSION['user']->lottery = $lottery;
-		if ($lottery == 1) {
-			$sql = "SELECT nickname FROM `coach_newyear_oauth` WHERE `openid` = ?"; 
+		$res->bind_param("ss", $image, $uid);
+		if($res->execute()) {
+			$sql = "SELECT id FROM `coach_newyear_image` WHERE `image` = ?"; 
 			$res = $this->db->prepare($sql);
-			$res->bind_param("s", $_SESSION['user']->openid);
+			$res->bind_param("s", $image);
 			$res->execute();
-			$res->bind_result($nickname);
+			$res->bind_result($id);
 			if($res->fetch()) {
-				$RedisAPI = new RedisAPI();
-				$RedisAPI->setLotteryList($nickname);
+				return $id;
 			}
+			return FALSE;
 		}
+		return FALSE;
 	}
 
 	/**
