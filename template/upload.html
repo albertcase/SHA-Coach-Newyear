@@ -103,7 +103,9 @@
 
     var saveimgPushData = {
             "image": ""
-        }, swiper, completion = false, photoSrc;
+        }, swiper, completion = false, photoSrc, saveimgPushData = {
+            "image": ""
+        };;
 
     document.getElementById("fileInput").addEventListener('change', function () {
         $(".loading").removeClass("hide");
@@ -187,7 +189,8 @@
         }else{
             photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
             saveimgPushData["image"] = photoSrc;
-            window.location.href = "share.html";
+            console.log(photoSrc);
+            ajaxfun("POST", "/api/saveimg", saveimgPushData, "json", saveimgCallback);
         }
     }) 
 
@@ -199,7 +202,10 @@
         }
     })
 
-    
+    function saveimgCallback(data){
+       console.log(data);
+       window.location.href = "share.html";
+    } 
 
 
 
