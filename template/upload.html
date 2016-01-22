@@ -189,7 +189,6 @@
         }else{
             photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
             saveimgPushData["image"] = photoSrc;
-            console.log(photoSrc);
             ajaxfun("POST", "/api/saveimg", saveimgPushData, "json", saveimgCallback);
         }
     }) 
