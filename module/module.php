@@ -104,9 +104,11 @@ function _api_saveimg() {
 		$DatabaseAPI = new DatabaseAPI();
 		$re = $DatabaseAPI->setSaveImg($name, $mobile, $user->uid);
 		if ($re) {
-			print json_encode(array("code"=>1,"msg"=>"提交成功"));
+			print json_encode(array("code"=>1,"msg"=>$re));
 			exit;
 		}
+		print json_encode(array("code"=>4,"msg"=>'提交失败'));
+		exit;
 		
 	}
 }
