@@ -105,8 +105,8 @@ function _page_home() {
 	exit;
 }
 
-function _page_upload() {
-	print file_get_contents(TEMPLATE_ROOT . 'upload.html');
+function _page_upfile() {
+	print file_get_contents(TEMPLATE_ROOT . 'upfile.html');
 	exit;
 }
 
