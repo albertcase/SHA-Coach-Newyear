@@ -103,7 +103,9 @@
 
     var saveimgPushData = {
             "image": ""
-        }, swiper, completion = false, photoSrc;
+        }, completion = false, photoSrc, saveimgPushData = {
+            "image": ""
+        };;
 
     document.getElementById("fileInput").addEventListener('change', function () {
         $(".loading").removeClass("hide");
@@ -175,20 +177,9 @@
     
     $(".nextBtn").click(function(){
         if($(".shell").html() == "") return false;
-        if($(".shell").html() != "" && $(".shell").html() != null && !completion){
-            $(".browArea").css({"display": "inline-block"});
-            swiper = new Swiper('.swiper-container', {
-                slidesPerView: 4,
-                paginationClickable: true,
-                spaceBetween: 12
-            });
-
-            completion = true;
-        }else{
-            photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
-            saveimgPushData["image"] = photoSrc;
-            window.location.href = "share.html";
-        }
+        photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
+        saveimgPushData["image"] = photoSrc;
+        ajaxfun("POST", "/api/saveimg", saveimgPushData, "json", saveimgCallback);
     }) 
 
     $(".backBtn").click(function(){
@@ -199,7 +190,13 @@
         }
     })
 
-    
+    function saveimgCallback(data){
+        if(data.code == 1){
+            window.location.href = "/share?id=" + data.msg;
+        }else{
+            console.log(data.code);
+        }
+    } 
 
 
 
