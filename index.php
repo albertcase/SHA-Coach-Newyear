@@ -11,7 +11,7 @@ $routers['/api/getdata'] = '_wechat_getdata';
 $routers['/api/callback'] = '_wechat_callback';
 $routers['/api/saveimg'] = '_api_saveimg';
 $routers['/home'] = '_page_home';
-$routers['/upload'] = '_page_upload';
+$routers['/upfile'] = '_page_upfile';
 $routers['/share'] = '_page_share';
 
 $listener = array();
