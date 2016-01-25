@@ -10,7 +10,9 @@ $routers = array();
 $routers['/api/getdata'] = '_wechat_getdata';
 $routers['/api/callback'] = '_wechat_callback';
 $routers['/api/saveimg'] = '_api_saveimg';
-$routers['/api/share'] = '_api_share';
+$routers['/home'] = '_page_home';
+$routers['/upload'] = '_page_upload';
+$routers['/share'] = '_page_share';
 
 $listener = array();
 $listener[] = '/';
