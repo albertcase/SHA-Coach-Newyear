@@ -138,6 +138,22 @@ class DatabaseAPI {
 		return FALSE;
 	}
 
+	public function findImageById($id){
+		$sql = "SELECT id,image,uid FROM `coach_newyear_image` WHERE `id` = ?"; 
+		$res = $this->db->prepare($sql);
+		$res->bind_param("s", $id);
+		$res->execute();
+		$res->bind_result($id, $image, $uid);
+		if($res->fetch()) {
+			$data = new stdClass();
+			$data->id = $id;
+			$data->image = $image;
+			$data->uid = $uid;
+			return $data;
+		}
+		return NULL;
+	}
+
 	/**
 	 * check prize record
 	 */

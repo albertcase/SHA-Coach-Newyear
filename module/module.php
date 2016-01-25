@@ -47,19 +47,6 @@ function _api_status() {
 	}
 }
 
-function _api_lotterylist() {
-	if(isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest"){ 
-	    // ajax 请求的处理方式 
-		$RedisAPI = new RedisAPI();
-		$list = $RedisAPI->getLotteryList();
-		if (!$list) {
-			print json_encode(array("code" => 2, "msg" => "没有人中奖"));
-			exit;
-		}	
-		print json_encode(array("code"=>1,"msg"=>$list));
-		exit;
-	}
-}
 
 function _api_saveimg() {
 	if(isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest"){ 
@@ -113,64 +100,45 @@ function _api_saveimg() {
 	}
 }
 
-function _api_lottery() {
-	if(isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest"){ 
-	    // ajax 请求的处理方式 
-		$UserAPI = new UserAPI();
-		$user = $UserAPI->userLoad(true);
-		if ($user) {
-			$DatabaseAPI = new DatabaseAPI();
-			if ($user->status == 0) {
-				print json_encode(array("code"=>4,"msg"=>"没有抽奖机会"));
-			    exit;
-			}
-			$_SESSION['user']->status = 0;
-			if ($user->lottery > 0) {
-				//只能中卡券
-				print json_encode(array("code"=>2,"msg"=>"卡券"));
-			    exit;
-			}
-			$rand = rand(1, 100000);
-			if ($rand <= 1000) {
-				//包包
-				$totalcount = $DatabaseAPI->totalcount();
-				if ($totalcount>=49) {
-					$DatabaseAPI->setPrizeRecord($user->uid, 2);
-					print json_encode(array("code"=>3,"msg"=>"未中奖"));
-				    exit;
-				}
-				$DatabaseAPI->setPrizeRecord($user->uid, 1);
-				print json_encode(array("code"=>1,"msg"=>"礼品"));
-			    exit;
-			}
-			//未中奖
-			$DatabaseAPI->setPrizeRecord($user->uid, 2);
-			print json_encode(array("code"=>3,"msg"=>"未中奖"));
-		    exit;
-		}
-		print json_encode(array("code"=>0,"msg"=>"请先登录"));
-		exit;
-	}
+function _page_home() {
+	print file_get_contents(TEMPLATE_ROOT . 'home.html');
+	exit;
 }
 
-function _api_share() {
-	if(isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest"){ 
-	    // ajax 请求的处理方式 
-		$UserAPI = new UserAPI();
-		$user = $UserAPI->userLoad(true);
-		if ($user) {
-			$_SESSION['user']->status = 1;
-			print json_encode(array("code"=>1,"msg"=>"分享成功"));
-			exit;
-		}
-		print json_encode(array("code"=>0,"msg"=>"请先登录"));
-		exit;
-	}
+function _page_upload() {
+	print file_get_contents(TEMPLATE_ROOT . 'upload.html');
+	exit;
 }
 
-function _api_refreshlist() {
-	$RedisAPI = new RedisAPI();
-	$list = $RedisAPI->refreshList();
-	print json_encode(array("code"=>1,"msg"=>$list));
+function _page_share() {
+	$id = isset($_GET['id']) ? $_GET['id'] : 0;
+	if (!$id) {
+		Header("Location: /");
+		exit;
+	}
+	$DatabaseAPI = new DatabaseAPI();
+	$data = $DatabaseAPI->findImageById($id);
+	if (!$data) {
+		Header("Location: /");
+		exit;
+	}
+	$UserAPI = new UserAPI();
+    $user = $UserAPI->userLoad(true);
+	if (!$user) {
+		$uid = 0;
+	} else {
+		$uid = $user->uid;
+	}
+	
+	$html = file_get_contents(TEMPLATE_ROOT . 'share.html');
+	$html = str_replace('{img}', $data->image , $html);
+	if ($data->uid == $uid) {
+		$html = str_replace('{foot}', '<a href="javascript:;" class="btn shareBtn"><img src="../img/shareBtn.png" width="100%" /></a>' , $html);
+	} else {
+		$html = str_replace('{foot}', '<a href="/" class="btn makeBtn"><img src="img/makeBtn.png" width="100%" /></a>' , $html);
+	}
+	print $html;
+	exit;
 }
+
 ?>
