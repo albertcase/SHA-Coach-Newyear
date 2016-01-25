@@ -103,7 +103,7 @@
 
     var saveimgPushData = {
             "image": ""
-        }, swiper, completion = false, photoSrc, saveimgPushData = {
+        }, completion = false, photoSrc, saveimgPushData = {
             "image": ""
         };;
 
@@ -177,20 +177,9 @@
     
     $(".nextBtn").click(function(){
         if($(".shell").html() == "") return false;
-        if($(".shell").html() != "" && $(".shell").html() != null && !completion){
-            $(".browArea").css({"display": "inline-block"});
-            swiper = new Swiper('.swiper-container', {
-                slidesPerView: 4,
-                paginationClickable: true,
-                spaceBetween: 12
-            });
-
-            completion = true;
-        }else{
-            photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
-            saveimgPushData["image"] = photoSrc;
-            ajaxfun("POST", "/api/saveimg", saveimgPushData, "json", saveimgCallback);
-        }
+        photoSrc = $("#photoCanvas")[0].toDataURL({format:"png", quality: 1}).replace("data:image/png;base64,", "");
+        saveimgPushData["image"] = photoSrc;
+        ajaxfun("POST", "/api/saveimg", saveimgPushData, "json", saveimgCallback);
     }) 
 
     $(".backBtn").click(function(){
@@ -202,8 +191,11 @@
     })
 
     function saveimgCallback(data){
-       console.log(data);
-       window.location.href = "share.html";
+        if(data.code == 1){
+            window.location.href = "/share?id=" + data.msg;
+        }else{
+            console.log(data.code);
+        }
     } 
 
 

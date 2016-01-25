@@ -92,31 +92,43 @@
 						origin: { x: "center", y: "center" },
 						image: cthis,
 					});
+					var browImg = new Image();
+			            browImg.src = $(".swiper-slide").eq(0).find("img").attr("data-url");
+			            browImg.onload = function(){
 
-					// imgPic2 = imgCanvas.display.image({
-					// 	width: imgCv.width()/2,
-					// 	x:imgCv.width()/2,
-					// 	y:imgCv.height()/3.1,
-					// 	origin: { x: "center", y: "center" },
-					// 	image: maskImg,
-					// });
+			            	imgPic2 = imgCanvas.display.image({
+		                        width: imgCv.width(),
+		                        x:0,
+		                        y:0,
+		                        image: browImg,
+		                    });
+							
+							imgCanvas.addChild(imgPic);
+							imgCanvas.addChild(imgPic2);
+
+							imgStep=1;
+							imgRotation=0;
+							if(os.ios) imgScale=0.3;
+							else if(isS4) imgScale=imgScaleMax;
+							else imgScale=0.5;
+							imgScaleSet(imgPic);
+							
+							if(os.android) setTimeout(function(){
+								imgCv[0].style.opacity = imgCv[0].style.opacity ? "" : "0.999";
+							},250);
+							addImgEvent(imgPic);
+
+							$(".loading").addClass("hide");
+							$(".browArea").css({"display": "inline-block"});
+							var swiper = new Swiper('.swiper-container', {
+				                slidesPerView: 4,
+				                paginationClickable: true,
+				                spaceBetween: 12
+				            });
+
+				            completion = true;
+			            }
 					
-					imgCanvas.addChild(imgPic);
-					// imgCanvas.addChild(imgPic2);
-
-					imgStep=1;
-					imgRotation=0;
-					if(os.ios) imgScale=0.3;
-					else if(isS4) imgScale=imgScaleMax;
-					else imgScale=0.5;
-					imgScaleSet(imgPic);
-					
-					if(os.android) setTimeout(function(){
-						imgCv[0].style.opacity = imgCv[0].style.opacity ? "" : "0.999";
-					},250);
-					addImgEvent(imgPic);
-
-					$(".loading").addClass("hide");
 
 			
 	}//end func
