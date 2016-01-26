@@ -29,7 +29,7 @@ wx.ready(function() {
             type: '',
             dataUrl: '',
             success: function () {
-                alert(window.location.href);
+                $(".shareTips").hide();
                 _hmt.push(['_trackEvent', 'share', 'ShareAppMessage']);
             },
             cancel: function () {
@@ -48,6 +48,7 @@ wx.ready(function() {
                 link: window.location.href,
                 imgUrl: 'http://7vzs67.com1.z0.glb.clouddn.com/fe106d3c-9b97-435d-8f7c-67dd99ea3f33?imageView2/1/w/200/h/200/format/jpg/q80/interlace/1',
                 success: function () {
+                    $(".shareTips").hide();
                     _hmt.push(['_trackEvent', 'share', 'ShareTimeline']);
                 },
                 cancel: function () {
