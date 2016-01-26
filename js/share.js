@@ -29,6 +29,7 @@ wx.ready(function() {
             type: '',
             dataUrl: '',
             success: function () {
+                alert(window.location.href);
                 _hmt.push(['_trackEvent', 'share', 'ShareAppMessage']);
             },
             cancel: function () {
