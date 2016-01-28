@@ -1,8 +1,3 @@
-document.addEventListener('touchmove' , function (ev){
-  ev.preventDefault();
-  return false;
-} , false)
-
 
 if(self == top){
     document.documentElement.style.display = 'block';
