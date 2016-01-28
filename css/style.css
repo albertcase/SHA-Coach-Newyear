@@ -17,12 +17,32 @@
 	background-size: 100% auto;
 }
 
+.slogan{
+	width: 100%;
+	height: 15%;
+	background: url("../img/slogan.png") no-repeat center;
+	background-size: 100% auto;
+	display: inline-block;
+	margin: 24% 0 10% 0; 
+}
+
+.indexpage #header{
+	background: none;
+}
+
 #container{
-	height: 75%;
+	height: 73%;
+	overflow: auto;
 }
 
 #footer{
-	height: 10%;
+	height: 12%;
+}
+
+.logo{
+	width: 100%;
+	display: inline-block;
+	padding: 16% 0 0 0;
 }
 
 .kv{
@@ -81,6 +101,13 @@
 	float: left;
 }
 
+.prompt_ca_friend{
+	width: 100%;
+	display: inline-block;
+	float: left;
+	margin: 6% 0 0 0;
+}
+
 .shareTips{
 	width: 100%;
 	height: 100%;
@@ -101,6 +128,28 @@
 
 .qrcodeSlogan{
 	width: 100%;
+}
+
+.backbtnArea{
+	width: 100%;
+	position: relative;
+	display: inline-block;
+}
+
+.bba_con{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+
+.bba_con a{
+	width: 36%;
+	height: 100%;
+	display: inline-block;
+	margin: 0 2%; 
 }
 
 

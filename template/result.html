@@ -32,8 +32,6 @@
 
 </head>
 <body>
-<div class="shareTips"></div>
-
 
 <div id="dreambox">
     <div id="header"></div>
@@ -51,11 +49,17 @@
             <img src="../img/uploadBg.jpg" style="opacity: 0;" width="100%" />
         </div>
 
-        {shareText}
+        <!-- <div class="prompt_ca"></div> -->
 
     </div>
     <div id="footer">
-        {foot}
+        <div class="backbtnArea">
+            <div class="bba_con">
+                <a href="/home" title="重新开始"></a>
+                <a href="http://m.china.coach.com/" target="_blank" title="前往COACH官网"></a>
+            </div>
+            <img src="../img/shareback_btn.png" width="100%" />
+        </div>
     </div>
 </div>
 
@@ -67,16 +71,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="../js/share.js"></script>
-<script type="text/javascript">
-    $(".shareBtn").click(function(){
-        $(".shareTips").fadeIn();
-    })
-
-    $(".shareTips").click(function(){
-        $(".shareTips").hide();
-    })
-</script>
 
 
 

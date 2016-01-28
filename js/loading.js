@@ -1,4 +1,5 @@
 var LoadingImg = [
+    "../img/logo.png",
     "../img/backBtn.png",
     "../img/info_1.png",
     "../img/info_2.png",

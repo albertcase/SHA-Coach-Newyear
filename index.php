@@ -13,6 +13,8 @@ $routers['/api/saveimg'] = '_api_saveimg';
 $routers['/home'] = '_page_home';
 $routers['/upfile'] = '_page_upfile';
 $routers['/share'] = '_page_share';
+$routers['/result'] = '_page_result';
+
 
 $listener = array();
 $listener[] = '/';

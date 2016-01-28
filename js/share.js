@@ -2,6 +2,13 @@
 
 /* 微信分享 */
 
+function GetQueryString(name){
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return unescape(r[2]); return null;
+}
+
+
 // ready setting
 wx.ready(function() {
         var _unescape = function(str) {
@@ -29,6 +36,10 @@ wx.ready(function() {
             type: '',
             dataUrl: '',
             success: function () {
+                if($(".shareBtn").size() > 0 ){
+                    window.location.href="/result?id=" + GetQueryString("id")
+                };
+                
                 $(".shareTips").hide();
                 _hmt.push(['_trackEvent', 'share', 'ShareAppMessage']);
             },
@@ -48,6 +59,10 @@ wx.ready(function() {
                 link: window.location.href,
                 imgUrl: 'http://7vzs67.com1.z0.glb.clouddn.com/fe106d3c-9b97-435d-8f7c-67dd99ea3f33?imageView2/1/w/200/h/200/format/jpg/q80/interlace/1',
                 success: function () {
+                    if($(".shareBtn").size() > 0 ){
+                        window.location.href="/result?id=" + GetQueryString("id")
+                    };
+
                     $(".shareTips").hide();
                     _hmt.push(['_trackEvent', 'share', 'ShareTimeline']);
                 },

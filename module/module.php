@@ -133,12 +133,44 @@ function _page_share() {
 	$html = file_get_contents(TEMPLATE_ROOT . 'share.html');
 	$html = str_replace('{img}', $data->image , $html);
 	if ($data->uid == $uid) {
+		$html = str_replace('{shareText}', '<div class="prompt_ca"></div>' , $html);
+
 		$html = str_replace('{foot}', '<a href="javascript:;" class="btn shareBtn"><img src="../img/shareBtn.png" width="100%" /></a>' , $html);
 	} else {
-		$html = str_replace('{foot}', '<a href="/" class="btn makeBtn"><img src="img/makeBtn.png" width="100%" /></a>' , $html);
+		$html = str_replace('{shareText}', '<div class="prompt_ca_friend"><img src="../img/friend_text.png" width="100%" /></div>' , $html);
+
+		$html = str_replace('{foot}', '<a href="/" class="btn makeBtn"><img src="../img/makeBtn.png" width="100%" /></a>' , $html);
 	}
 	print $html;
 	exit;
 }
+
+function _page_result() {
+	$id = isset($_GET['id']) ? $_GET['id'] : 0;
+	if (!$id) {
+		Header("Location: /");
+		exit;
+	}
+	$DatabaseAPI = new DatabaseAPI();
+	$data = $DatabaseAPI->findImageById($id);
+	if (!$data) {
+		Header("Location: /");
+		exit;
+	}
+	$UserAPI = new UserAPI();
+    $user = $UserAPI->userLoad(true);
+	if (!$user) {
+		$uid = 0;
+	} else {
+		$uid = $user->uid;
+	}
+	
+	$html = file_get_contents(TEMPLATE_ROOT . 'result.html');
+	$html = str_replace('{img}', $data->image , $html);
+	
+	print $html;
+	exit;
+}
+
 
 ?>
