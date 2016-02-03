@@ -12,7 +12,7 @@
 }
 
 #header{
-	height: 15%;
+	height: 14%;
 	background: url("../img/slogan.png") no-repeat center;
 	background-size: 100% auto;
 }
@@ -31,7 +31,7 @@
 }
 
 #container{
-	height: 73%;
+	height: 74%;
 	overflow: auto;
 	-ms-overflow-scrolling: touch; 
     -moz-overflow-scrolling: touch; 
