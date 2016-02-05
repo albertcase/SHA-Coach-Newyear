@@ -157,7 +157,9 @@
 	margin: 0 2%; 
 }
 
-
+#imgPreview{
+	z-index: 6;
+}
 
 /* 6plus */
 @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation: portrait) {
